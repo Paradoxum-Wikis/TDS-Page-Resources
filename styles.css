@@ -1,0 +1,26 @@
+body {
+    background-color: #f8f9fa;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.game-thumbnail img {
+    width: 15rem;
+}
+
+.thumbnail-gallery img {
+    width: 15rem;
+    object-fit: cover;
+    transition: transform 0.2s;
+    cursor: pointer;
+}
+
+.thumbnail-gallery img:hover {
+    transform: scale(1.05);
+}
+
+.game-details {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
