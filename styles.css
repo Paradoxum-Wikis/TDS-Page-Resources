@@ -1,26 +1,69 @@
 body {
-    background-color: #f8f9fa;
+    background-image: url('./bg.png');
     font-family: 'Montserrat', sans-serif;
 }
 
-.game-thumbnail img {
-    width: 15rem;
-}
-
+.game-icon img,
 .thumbnail-gallery img {
+    border: 5px solid white;
     width: 15rem;
     object-fit: cover;
     transition: transform 0.2s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.thumbnail-gallery img:hover,
+.game-icon img:hover {
+    transform: scale(1.05);
     cursor: pointer;
 }
 
-.thumbnail-gallery img:hover {
-    transform: scale(1.05);
+.game-details {
+    background-color: white;
+    padding: 20px;
+    border-radius: 25px 0 25px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-.game-details {
-    background-color: #ffffff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+.general {
+    background-color: white;
+    border-radius: 25px 0 25px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.stupidbigtext {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.btn {
+    border-radius: 25px 0 0 0 !important;
+}
+
+.rounded25 {
+    border-radius: 25px 0 25px 0;
+}
+
+.game-stats td,
+.game-attributes td,
+.creator-details td,
+.technical-details td {
+    width: 50%;
+    padding: 8px;
+}
+
+.game-stats td:first-child,
+.game-attributes td:first-child,
+.creator-details td:first-child,
+.technical-details td:first-child {
+    width: 40%;
+    font-weight: bold;
+}
+
+.game-stats td:nth-child(2),
+.game-attributes td:nth-child(2),
+.creator-details td:nth-child(2),
+.technical-details td:nth-child(2) {
+    width: 60%;
 }
