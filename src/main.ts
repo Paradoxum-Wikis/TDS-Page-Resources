@@ -183,17 +183,23 @@ function setupGalleryClickHandler(container: HTMLElement): void {
     container.onclick = (event: MouseEvent) => {
         const target = event.target as HTMLElement;
         if (target.tagName === 'IMG' && target.dataset.downloadUrl && target.dataset.downloadFilename) {
+            console.log('Downloading image:', target.dataset.downloadUrl, 'as', target.dataset.downloadFilename);
             downloadImage(target.dataset.downloadUrl, target.dataset.downloadFilename);
         }
     };
 }
 
 // common update UI function
-function updateUI(data: RobloxGameData | GameDataCache, isCache: boolean = false): void {
-    // get UI elements
-    const titleElement = document.querySelector('.game-details h1.h3');
-    const developerElement = document.querySelector('.game-details p.text-muted a') as HTMLAnchorElement | null;
-    const descriptionElement = document.querySelector('.game-details h2.h5 + p');
+function updateUI(
+    data: RobloxGameData | GameDataCache, 
+    isCache: boolean = false,
+    elements: {
+        titleElement: Element | null,
+        developerElement: HTMLAnchorElement | null,
+        descriptionElement: Element | null
+    }
+): void {
+    const { titleElement, developerElement, descriptionElement } = elements;
     
     if (isCache) {
         // type guard because typescript is funny
@@ -354,7 +360,10 @@ function populateUIFromCache(cache: GameDataCache): void {
     }
     
     // update all the UI elements with data from cache
-    updateUI(cache, true);
+    const titleElement = document.querySelector('.game-details h1.h3');
+    const developerElement = document.querySelector('.game-details p.text-muted a') as HTMLAnchorElement | null;
+    const descriptionElement = document.querySelector('.game-details h2.h5 + p');
+    updateUI(cache, true, { titleElement, developerElement, descriptionElement });
 }
 
 // formatting helpers
@@ -500,7 +509,7 @@ async function fetchGameDataAndUpdatePage(): Promise<void> {
             const gameData = gameResult.data[0];
 
             // update all the UI elements with API data
-            updateUI(gameData, false);
+            updateUI(gameData, false, { titleElement, developerElement, descriptionElement });
 
             // save basic details to cache
             cacheData.gameDetails.id = gameData.id;
@@ -670,40 +679,79 @@ function initialize(): void {
     if (loadButton) {
         loadButton.addEventListener('click', fetchGameDataAndUpdatePage);
     }
+    
+}
+
+function setupHDButtonListener(): void {
+    const hdButton = document.getElementById('hdDownloadBtn');
+    
+    if (hdButton) {
+        hdButton.addEventListener('click', function() {
+            const gameIcon = document.querySelector('.game-icon img') as HTMLImageElement;
+            if (!gameIcon || !gameIcon.src) {
+                console.error('No game icon found or src is empty');
+                return;
+            }
+            
+            console.log('Current image URL:', gameIcon.src);
+            // replace 512 with 1024
+            const hdUrl = gameIcon.src.replace('/512/512/', '/1024/1024/');
+
+            downloadImage(hdUrl, 'game-icon-full');
+        });
+    }
 }
 
 if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initialize);
+    document.addEventListener('DOMContentLoaded', () => {
+        initialize();
+        setupHDButtonListener();
+    });
 } else {
+    // DOM already loaded
     initialize();
+    setupHDButtonListener();
 }
 
 // trigger image download
 async function downloadImage(imageUrl: string, filename: string): Promise<void> {
+    console.log('downloadImage function called with:', { imageUrl, filename });
     try {
         // fetch image as blob
+        console.log('Fetching image from URL...');
         const response = await fetch(imageUrl);
         if (!response.ok) {
+            console.error('Fetch response not OK:', response.status, response.statusText);
             throw new Error(`failed to fetch image: ${response.statusText}`);
         }
+        console.log('Fetch successful, converting to blob...');
         const blob = await response.blob();
+        console.log('Blob created, size:', blob.size, 'type:', blob.type);
 
         // create temp link
+        console.log('Creating download link element...');
         const link = document.createElement('a');
         link.href = URL.createObjectURL(blob);
+        console.log('Object URL created:', link.href.substring(0, 30) + '...');
 
         // put png at the end of file
         const finalFilename = filename.endsWith('.png') ? filename : `${filename}.png`;
         link.download = finalFilename;
+        console.log('Setting download filename to:', finalFilename);
 
         // click link to trigger download
+        console.log('Appending link to document body and clicking...');
         document.body.appendChild(link);
         link.click();
+        console.log('Link clicked');
 
         // cleanup
+        console.log('Cleaning up...');
         document.body.removeChild(link);
         URL.revokeObjectURL(link.href);
+        console.log('Download process completed');
     } catch (error) {
+        console.error('Error in downloadImage function:', error);
         alert(`could not download image: ${error instanceof Error ? error.message : 'unknown error'}`);
     }
 }
