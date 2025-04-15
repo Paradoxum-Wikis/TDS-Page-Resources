@@ -200,121 +200,123 @@ function updateUI(
     }
 ): void {
     const { titleElement, developerElement, descriptionElement } = elements;
-    
+
+    let normalizedData;
     if (isCache) {
         // type guard because typescript is funny
         const cachedData = data as GameDataCache;
-        
-        // update game details
-        if (titleElement) titleElement.textContent = cachedData.gameDetails.name;
-        if (developerElement) {
-            developerElement.textContent = cachedData.gameDetails.developer;
-            
-            // set url based on creator type
-            if (cachedData.gameDetails.developerType.toLowerCase() === "user") {
-                developerElement.href = `https://www.roblox.com/users/${cachedData.gameDetails.developerId}/profile`;
-            } else {
-                developerElement.href = `https://www.roblox.com/communities/${cachedData.gameDetails.developerId}`;
-            }
-            developerElement.target = "_blank";
-        }
-        if (descriptionElement) descriptionElement.textContent = cachedData.gameDetails.description;
-        
-        // update game stats
-        updateStatText('active-players', formatNumber(cachedData.gameStats.activePlayers), cachedData.gameStats.activePlayers);
-        updateStatText('total-visits', formatNumber(cachedData.gameStats.totalVisits), cachedData.gameStats.totalVisits);
-        updateStatText('max-players', cachedData.gameStats.maxPlayers.toString(), cachedData.gameStats.maxPlayers);
-        updateStatText('favorites-count', formatNumber(cachedData.gameStats.favoritesCount), cachedData.gameStats.favoritesCount);
-        updateStatText('game-genre', cachedData.gameStats.genre, cachedData.gameStats.genre);
-        updateStatText('created-date', formatDate(cachedData.gameStats.created), cachedData.gameStats.created);
-        updateStatText('updated-date', formatDate(cachedData.gameStats.updated), cachedData.gameStats.updated);
-        
-        // update game attributes
-        updateStatText('game-price', cachedData.gameDetails.price === null ? 'Free' : `R$ ${cachedData.gameDetails.price}`, 
-                      cachedData.gameDetails.price === null ? 'null' : cachedData.gameDetails.price);
-        updateStatText('avatar-type', cachedData.gameDetails.universeAvatarType, cachedData.gameDetails.universeAvatarType);
-        
-        const subgenres = [];
-        if (cachedData.gameDetails.subgenres.genre_l1) subgenres.push(cachedData.gameDetails.subgenres.genre_l1);
-        if (cachedData.gameDetails.subgenres.genre_l2) subgenres.push(cachedData.gameDetails.subgenres.genre_l2);
-        updateStatText('game-subgenres', subgenres.length > 0 ? subgenres.join(', ') : 'None', 
-                      `l1: ${cachedData.gameDetails.subgenres.genre_l1 || 'None'}, l2: ${cachedData.gameDetails.subgenres.genre_l2 || 'None'}`);
-        
-        updateStatText('allowed-gear', formatArray(cachedData.gameDetails.settings.allowedGearGenres), 
-                      JSON.stringify(cachedData.gameDetails.settings.allowedGearGenres));
-        updateStatText('vip-servers', formatBoolean(cachedData.gameDetails.settings.createVipServersAllowed), 
-                      cachedData.gameDetails.settings.createVipServersAllowed.toString());
-        updateStatText('copying-allowed', formatBoolean(cachedData.gameDetails.settings.copyingAllowed), 
-                      cachedData.gameDetails.settings.copyingAllowed.toString());
-        updateStatText('genre-enforced', formatBoolean(cachedData.gameDetails.settings.isGenreEnforced), 
-                      cachedData.gameDetails.settings.isGenreEnforced.toString());
-        
-        // update creator details
-        updateStatText('creator-type', cachedData.gameDetails.developerType, cachedData.gameDetails.developerType);
-        updateStatText('verified-badge', formatBoolean(cachedData.gameDetails.creator.hasVerifiedBadge), 
-                      cachedData.gameDetails.creator.hasVerifiedBadge.toString());
-        updateStatText('rnv-account', formatBoolean(cachedData.gameDetails.creator.isRNVAccount), 
-                      cachedData.gameDetails.creator.isRNVAccount.toString());
-        
-        // update technical details
-        updateStatText('universe-id', cachedData.gameDetails.id.toString(), cachedData.gameDetails.id.toString());
-        updateStatText('place-id', cachedData.gameDetails.rootPlaceId.toString(), cachedData.gameDetails.rootPlaceId.toString());
-        updateStatText('api-access', formatBoolean(cachedData.gameDetails.settings.studioAccessToApisAllowed), 
-                      cachedData.gameDetails.settings.studioAccessToApisAllowed.toString());
-    } else { // same shit, but robloxgamedata
+        normalizedData = {
+            name: cachedData.gameDetails.name,
+            developer: cachedData.gameDetails.developer,
+            developerId: cachedData.gameDetails.developerId,
+            developerType: cachedData.gameDetails.developerType,
+            description: cachedData.gameDetails.description,
+            activePlayers: cachedData.gameStats.activePlayers,
+            totalVisits: cachedData.gameStats.totalVisits,
+            maxPlayers: cachedData.gameStats.maxPlayers,
+            favoritesCount: cachedData.gameStats.favoritesCount,
+            genre: cachedData.gameStats.genre,
+            created: cachedData.gameStats.created,
+            updated: cachedData.gameStats.updated,
+            price: cachedData.gameDetails.price,
+            universeAvatarType: cachedData.gameDetails.universeAvatarType,
+            genre_l1: cachedData.gameDetails.subgenres.genre_l1,
+            genre_l2: cachedData.gameDetails.subgenres.genre_l2,
+            allowedGearGenres: cachedData.gameDetails.settings.allowedGearGenres,
+            createVipServersAllowed: cachedData.gameDetails.settings.createVipServersAllowed,
+            copyingAllowed: cachedData.gameDetails.settings.copyingAllowed,
+            isGenreEnforced: cachedData.gameDetails.settings.isGenreEnforced,
+            hasVerifiedBadge: cachedData.gameDetails.creator.hasVerifiedBadge,
+            isRNVAccount: cachedData.gameDetails.creator.isRNVAccount,
+            universeId: cachedData.gameDetails.id,
+            rootPlaceId: cachedData.gameDetails.rootPlaceId,
+            studioAccessToApisAllowed: cachedData.gameDetails.settings.studioAccessToApisAllowed
+        };
+    } else {
         const gameData = data as RobloxGameData;
-
-        if (titleElement) titleElement.textContent = gameData.name;
-        if (developerElement) {
-            developerElement.textContent = gameData.creator.name;
-
-            if (gameData.creator.type.toLowerCase() === "user") {
-                developerElement.href = `https://www.roblox.com/users/${gameData.creator.id}/profile`;
-            } else {
-                developerElement.href = `https://www.roblox.com/communities/${gameData.creator.id}`;
-            }
-            developerElement.target = "_blank";
-        }
-        if (descriptionElement) descriptionElement.textContent = gameData.description;
-        
-        updateStatText('active-players', formatNumber(gameData.playing), gameData.playing);
-        updateStatText('total-visits', formatNumber(gameData.visits), gameData.visits);
-        updateStatText('max-players', gameData.maxPlayers.toString(), gameData.maxPlayers);
-        updateStatText('favorites-count', formatNumber(gameData.favoritedCount), gameData.favoritedCount);
-        updateStatText('game-genre', gameData.genre, gameData.genre);
-        updateStatText('created-date', formatDate(gameData.created), gameData.created);
-        updateStatText('updated-date', formatDate(gameData.updated), gameData.updated);
-        
-        updateStatText('game-price', gameData.price === null ? 'Free' : `R$ ${gameData.price}`, 
-                      gameData.price === null ? 'null' : gameData.price);
-        updateStatText('avatar-type', gameData.universeAvatarType, gameData.universeAvatarType);
-        
-        const subgenres = [];
-        if (gameData.genre_l1) subgenres.push(gameData.genre_l1);
-        if (gameData.genre_l2) subgenres.push(gameData.genre_l2);
-        updateStatText('game-subgenres', subgenres.length > 0 ? subgenres.join(', ') : 'None', 
-                      `l1: ${gameData.genre_l1 || 'None'}, l2: ${gameData.genre_l2 || 'None'}`);
-        
-        updateStatText('allowed-gear', formatArray(gameData.allowedGearGenres || []), 
-                      JSON.stringify(gameData.allowedGearGenres || []));
-        updateStatText('vip-servers', formatBoolean(gameData.createVipServersAllowed), 
-                      gameData.createVipServersAllowed.toString());
-        updateStatText('copying-allowed', formatBoolean(gameData.copyingAllowed), 
-                      gameData.copyingAllowed.toString());
-        updateStatText('genre-enforced', formatBoolean(gameData.isGenreEnforced), 
-                      gameData.isGenreEnforced.toString());
-
-        updateStatText('creator-type', gameData.creator.type, gameData.creator.type);
-        updateStatText('verified-badge', formatBoolean(gameData.creator.hasVerifiedBadge), 
-                      gameData.creator.hasVerifiedBadge.toString());
-        updateStatText('rnv-account', formatBoolean(gameData.creator.isRNVAccount), 
-                      gameData.creator.isRNVAccount.toString());
-
-        updateStatText('universe-id', gameData.id.toString(), gameData.id.toString());
-        updateStatText('place-id', gameData.rootPlaceId.toString(), gameData.rootPlaceId.toString());
-        updateStatText('api-access', formatBoolean(gameData.studioAccessToApisAllowed), 
-                      gameData.studioAccessToApisAllowed.toString());
+        normalizedData = {
+            name: gameData.name,
+            developer: gameData.creator.name,
+            developerId: gameData.creator.id,
+            developerType: gameData.creator.type,
+            description: gameData.description,
+            activePlayers: gameData.playing,
+            totalVisits: gameData.visits,
+            maxPlayers: gameData.maxPlayers,
+            favoritesCount: gameData.favoritedCount,
+            genre: gameData.genre,
+            created: gameData.created,
+            updated: gameData.updated,
+            price: gameData.price,
+            universeAvatarType: gameData.universeAvatarType,
+            genre_l1: gameData.genre_l1 || null,
+            genre_l2: gameData.genre_l2 || null,
+            allowedGearGenres: gameData.allowedGearGenres || [],
+            createVipServersAllowed: gameData.createVipServersAllowed,
+            copyingAllowed: gameData.copyingAllowed,
+            isGenreEnforced: gameData.isGenreEnforced,
+            hasVerifiedBadge: gameData.creator.hasVerifiedBadge,
+            isRNVAccount: gameData.creator.isRNVAccount,
+            universeId: gameData.id,
+            rootPlaceId: gameData.rootPlaceId,
+            studioAccessToApisAllowed: gameData.studioAccessToApisAllowed
+        };
     }
+
+    // update UI using the normalized data
+    if (titleElement) titleElement.textContent = normalizedData.name;
+    if (developerElement) {
+        developerElement.textContent = normalizedData.developer;
+        if (normalizedData.developerType.toLowerCase() === "user") {
+            developerElement.href = `https://www.roblox.com/users/${normalizedData.developerId}/profile`;
+        } else {
+            developerElement.href = `https://www.roblox.com/communities/${normalizedData.developerId}`;
+        }
+        developerElement.target = "_blank";
+    }
+    if (descriptionElement) descriptionElement.textContent = normalizedData.description;
+
+    // Update game stats
+    updateStatText('active-players', formatNumber(normalizedData.activePlayers), normalizedData.activePlayers);
+    updateStatText('total-visits', formatNumber(normalizedData.totalVisits), normalizedData.totalVisits);
+    updateStatText('max-players', normalizedData.maxPlayers.toString(), normalizedData.maxPlayers);
+    updateStatText('favorites-count', formatNumber(normalizedData.favoritesCount), normalizedData.favoritesCount);
+    updateStatText('game-genre', normalizedData.genre, normalizedData.genre);
+    updateStatText('created-date', formatDate(normalizedData.created), normalizedData.created);
+    updateStatText('updated-date', formatDate(normalizedData.updated), normalizedData.updated);
+
+    // Update game attributes
+    updateStatText('game-price', normalizedData.price === null ? 'Free' : `R$ ${normalizedData.price}`, 
+                  normalizedData.price === null ? 'null' : normalizedData.price);
+    updateStatText('avatar-type', normalizedData.universeAvatarType, normalizedData.universeAvatarType);
+
+    const subgenres = [];
+    if (normalizedData.genre_l1) subgenres.push(normalizedData.genre_l1);
+    if (normalizedData.genre_l2) subgenres.push(normalizedData.genre_l2);
+    updateStatText('game-subgenres', subgenres.length > 0 ? subgenres.join(', ') : 'None', 
+                  `l1: ${normalizedData.genre_l1 || 'None'}, l2: ${normalizedData.genre_l2 || 'None'}`);
+
+    updateStatText('allowed-gear', formatArray(normalizedData.allowedGearGenres), 
+                  JSON.stringify(normalizedData.allowedGearGenres));
+    updateStatText('vip-servers', formatBoolean(normalizedData.createVipServersAllowed), 
+                  normalizedData.createVipServersAllowed.toString());
+    updateStatText('copying-allowed', formatBoolean(normalizedData.copyingAllowed), 
+                  normalizedData.copyingAllowed.toString());
+    updateStatText('genre-enforced', formatBoolean(normalizedData.isGenreEnforced), 
+                  normalizedData.isGenreEnforced.toString());
+
+    // Update creator details
+    updateStatText('creator-type', normalizedData.developerType, normalizedData.developerType);
+    updateStatText('verified-badge', formatBoolean(normalizedData.hasVerifiedBadge), 
+                  normalizedData.hasVerifiedBadge.toString());
+    updateStatText('rnv-account', formatBoolean(normalizedData.isRNVAccount), 
+                  normalizedData.isRNVAccount.toString());
+
+    // Update technical details
+    updateStatText('universe-id', normalizedData.universeId.toString(), normalizedData.universeId.toString());
+    updateStatText('place-id', normalizedData.rootPlaceId.toString(), normalizedData.rootPlaceId.toString());
+    updateStatText('api-access', formatBoolean(normalizedData.studioAccessToApisAllowed), 
+                  normalizedData.studioAccessToApisAllowed.toString());
 }
 
 // populate ui from cache
