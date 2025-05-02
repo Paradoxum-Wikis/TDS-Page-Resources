@@ -1,6 +1,6 @@
 body {
     background-image: url('./bg.png');
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Montserrat', sans-serif !important;
 }
 
 .game-icon img,
