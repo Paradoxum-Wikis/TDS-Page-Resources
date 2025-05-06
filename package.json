@@ -1,9 +1,10 @@
 {
   "dependencies": {
     "bootstrap": "^5.3.5",
+    "bootstrap-icons": "^1.12.1",
     "typescript": "^5.8.3"
   },
   "scripts": {
-    "build": "tsc && cp index.html dist/ && cp styles.css dist/ && cp logo.png dist/ && cp bg.png dist/ && cp Placeholder.png dist/"
+    "build": "tsc && cp index.html dist/ && cp styles.css dist/ && cp logo.png dist/ && cp bg.png dist/ && cp Placeholder.png dist/ && cp node_modules/bootstrap/dist/css/bootstrap.min.css dist/ && cp node_modules/bootstrap/dist/js/bootstrap.bundle.min.js dist/ && cp node_modules/bootstrap-icons/font/bootstrap-icons.min.css dist/ && cp -r node_modules/bootstrap-icons/font/fonts dist/"
   }
 }
