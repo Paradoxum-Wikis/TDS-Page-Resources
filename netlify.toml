@@ -1,0 +1,5 @@
+[[redirects]]
+  from = "https://steinsgate.netlify.app/*"
+  to = "https://resources.tds-editor.live/:splat"
+  status = 301
+  force = true
