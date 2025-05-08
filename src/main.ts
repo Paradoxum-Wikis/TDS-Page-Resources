@@ -571,7 +571,7 @@ async function fetchGameDataAndUpdatePage(): Promise<void> {
              errorP.textContent = `an error occurred: ${error instanceof Error ? error.message : 'unknown error'}`;
              detailsContainer.prepend(errorP);
         }
-         if (galleryContainer) galleryContainer.innerHTML = '<p class="text-muted">could not load thumbnails due to an error.</p>';
+         if (galleryContainer) galleryContainer.innerHTML = '<p class="text-danger">could not load thumbnails due to an error.</p>';
          if (gameIconElement instanceof HTMLImageElement) gameIconElement.src = '';
     } finally {
         // hide loading state
@@ -643,7 +643,7 @@ async function fetchGameMedia(
         }
     } catch {
         if (galleryContainer) {
-            galleryContainer.innerHTML = '<p class="text-muted">could not load thumbnails due to an error.</p>';
+            galleryContainer.innerHTML = '<p class="text-danger">could not load thumbnails due to an error.</p>';
         }
     }
 }
