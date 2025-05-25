@@ -5,6 +5,10 @@
     "typescript": "^5.8.3"
   },
   "scripts": {
-    "build": "tsc && cp index.html dist/ && cp styles.css dist/ && cp logo.png dist/ && cp bg.png dist/ && cp Placeholder.png dist/ && cp node_modules/bootstrap/dist/css/bootstrap.min.css dist/ && cp node_modules/bootstrap/dist/js/bootstrap.bundle.min.js dist/ && cp node_modules/bootstrap-icons/font/bootstrap-icons.min.css dist/ && cp -r node_modules/bootstrap-icons/font/fonts dist/"
+    "build": "tsc && cp index.html dist/ && cp styles.css dist/ && cp logo.png dist/ && cp bg.png dist/ && cp Placeholder.png dist/ && cp node_modules/bootstrap/dist/css/bootstrap.min.css dist/ && cp node_modules/bootstrap/dist/js/bootstrap.bundle.min.js dist/ && cp node_modules/bootstrap-icons/font/bootstrap-icons.min.css dist/ && cp -r node_modules/bootstrap-icons/font/fonts dist/",
+    "lint": "npx prettier . --write"
+  },
+  "devDependencies": {
+    "prettier": "3.5.3"
   }
 }

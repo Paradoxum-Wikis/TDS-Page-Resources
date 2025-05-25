@@ -2,9 +2,11 @@
 [![CodeQL](https://github.com/Paradoxum-Wikis/TDS-Page-Resources/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/Paradoxum-Wikis/TDS-Page-Resources/actions/workflows/github-code-scanning/codeql)
 
 # TDS-Page-Resources
- A resource downloader for the purpose of wiki documentation.
+
+A resource downloader for the purpose of wiki documentation.
 
 ## Build
+
 Build command:
 
     npm run build
@@ -14,7 +16,7 @@ Output directory:
     dist
 
 Install command:
-    
+
     npm install -D typescript && npx tsc
 
 If dependencies are missing on your local build, run:
