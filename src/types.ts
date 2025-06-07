@@ -85,6 +85,7 @@ export interface RobloxGameIconApiResponse {
 
 export interface GameDataCache {
   timestamp: number;
+  gameType: "TDS" | "AE";
   gameDetails: {
     id: number;
     rootPlaceId: number;

@@ -1,5 +1,10 @@
-import type { RobloxGameData, GameDataCache } from './types.js';
-import { formatNumber, formatDate, formatBoolean, formatArray } from './formatter.js';
+import type { RobloxGameData, GameDataCache } from "./types.js";
+import {
+  formatNumber,
+  formatDate,
+  formatBoolean,
+  formatArray,
+} from "./formatter.js";
 
 export class UIManager {
   static updateElementText(id: string, text: string): void {
@@ -8,21 +13,27 @@ export class UIManager {
     element.textContent = text;
   }
 
-  static updateStatText(id: string, formattedValue: string, rawValue: string | number): void {
+  static updateStatText(
+    id: string,
+    formattedValue: string,
+    rawValue: string | number,
+  ): void {
     const element = document.getElementById(id);
     if (!element) return;
     element.innerHTML = `${formattedValue} <span class="text-muted small">(${rawValue})</span>`;
   }
 
   static showLoadingState(isLoading: boolean): void {
-    const loadButton = document.getElementById("loadGameDataBtn") as HTMLButtonElement | null;
+    const loadButton = document.getElementById(
+      "loadGameDataBtn",
+    ) as HTMLButtonElement | null;
     const loadingIndicator = document.getElementById("loadingIndicator");
-    
+
     if (loadButton) {
       loadButton.disabled = isLoading;
-      loadButton.textContent = isLoading ? 'Loading...' : 'Refresh Data';
+      loadButton.textContent = isLoading ? "Loading..." : "Refresh Data";
     }
-    
+
     if (loadingIndicator) {
       loadingIndicator.style.display = isLoading ? "block" : "none";
     }
@@ -35,7 +46,7 @@ export class UIManager {
       titleElement: Element | null;
       developerElement: HTMLAnchorElement | null;
       descriptionElement: Element | null;
-    }
+    },
   ): void {
     const { titleElement, developerElement, descriptionElement } = elements;
 
@@ -57,21 +68,53 @@ export class UIManager {
     }
 
     // Update game stats
-    this.updateStatText("active-players", formatNumber(normalizedData.activePlayers), normalizedData.activePlayers);
-    this.updateStatText("total-visits", formatNumber(normalizedData.totalVisits), normalizedData.totalVisits);
-    this.updateStatText("max-players", normalizedData.maxPlayers.toString(), normalizedData.maxPlayers);
-    this.updateStatText("favorites-count", formatNumber(normalizedData.favoritesCount), normalizedData.favoritesCount);
-    this.updateStatText("game-genre", normalizedData.genre, normalizedData.genre);
-    this.updateStatText("created-date", formatDate(normalizedData.created), normalizedData.created);
-    this.updateStatText("updated-date", formatDate(normalizedData.updated), normalizedData.updated);
+    this.updateStatText(
+      "active-players",
+      formatNumber(normalizedData.activePlayers),
+      normalizedData.activePlayers,
+    );
+    this.updateStatText(
+      "total-visits",
+      formatNumber(normalizedData.totalVisits),
+      normalizedData.totalVisits,
+    );
+    this.updateStatText(
+      "max-players",
+      normalizedData.maxPlayers.toString(),
+      normalizedData.maxPlayers,
+    );
+    this.updateStatText(
+      "favorites-count",
+      formatNumber(normalizedData.favoritesCount),
+      normalizedData.favoritesCount,
+    );
+    this.updateStatText(
+      "game-genre",
+      normalizedData.genre,
+      normalizedData.genre,
+    );
+    this.updateStatText(
+      "created-date",
+      formatDate(normalizedData.created),
+      normalizedData.created,
+    );
+    this.updateStatText(
+      "updated-date",
+      formatDate(normalizedData.updated),
+      normalizedData.updated,
+    );
 
     // Update game attributes
     this.updateStatText(
       "game-price",
       normalizedData.price === null ? "Free" : `R$ ${normalizedData.price}`,
-      normalizedData.price === null ? "null" : normalizedData.price
+      normalizedData.price === null ? "null" : normalizedData.price,
     );
-    this.updateStatText("avatar-type", normalizedData.universeAvatarType, normalizedData.universeAvatarType);
+    this.updateStatText(
+      "avatar-type",
+      normalizedData.universeAvatarType,
+      normalizedData.universeAvatarType,
+    );
 
     const subgenres = [];
     if (normalizedData.genre_l1) subgenres.push(normalizedData.genre_l1);
@@ -79,26 +122,69 @@ export class UIManager {
     this.updateStatText(
       "game-subgenres",
       subgenres.length > 0 ? subgenres.join(", ") : "None",
-      `l1: ${normalizedData.genre_l1 || "None"}, l2: ${normalizedData.genre_l2 || "None"}`
+      `l1: ${normalizedData.genre_l1 || "None"}, l2: ${normalizedData.genre_l2 || "None"}`,
     );
 
-    this.updateStatText("allowed-gear", formatArray(normalizedData.allowedGearGenres), JSON.stringify(normalizedData.allowedGearGenres));
-    this.updateStatText("vip-servers", formatBoolean(normalizedData.createVipServersAllowed), normalizedData.createVipServersAllowed.toString());
-    this.updateStatText("copying-allowed", formatBoolean(normalizedData.copyingAllowed), normalizedData.copyingAllowed.toString());
-    this.updateStatText("genre-enforced", formatBoolean(normalizedData.isGenreEnforced), normalizedData.isGenreEnforced.toString());
+    this.updateStatText(
+      "allowed-gear",
+      formatArray(normalizedData.allowedGearGenres),
+      JSON.stringify(normalizedData.allowedGearGenres),
+    );
+    this.updateStatText(
+      "vip-servers",
+      formatBoolean(normalizedData.createVipServersAllowed),
+      normalizedData.createVipServersAllowed.toString(),
+    );
+    this.updateStatText(
+      "copying-allowed",
+      formatBoolean(normalizedData.copyingAllowed),
+      normalizedData.copyingAllowed.toString(),
+    );
+    this.updateStatText(
+      "genre-enforced",
+      formatBoolean(normalizedData.isGenreEnforced),
+      normalizedData.isGenreEnforced.toString(),
+    );
 
     // Update creator details
-    this.updateStatText("creator-type", normalizedData.developerType, normalizedData.developerType);
-    this.updateStatText("verified-badge", formatBoolean(normalizedData.hasVerifiedBadge), normalizedData.hasVerifiedBadge.toString());
-    this.updateStatText("rnv-account", formatBoolean(normalizedData.isRNVAccount), normalizedData.isRNVAccount.toString());
+    this.updateStatText(
+      "creator-type",
+      normalizedData.developerType,
+      normalizedData.developerType,
+    );
+    this.updateStatText(
+      "verified-badge",
+      formatBoolean(normalizedData.hasVerifiedBadge),
+      normalizedData.hasVerifiedBadge.toString(),
+    );
+    this.updateStatText(
+      "rnv-account",
+      formatBoolean(normalizedData.isRNVAccount),
+      normalizedData.isRNVAccount.toString(),
+    );
 
     // Update technical details
-    this.updateStatText("universe-id", normalizedData.universeId.toString(), normalizedData.universeId.toString());
-    this.updateStatText("place-id", normalizedData.rootPlaceId.toString(), normalizedData.rootPlaceId.toString());
-    this.updateStatText("api-access", formatBoolean(normalizedData.studioAccessToApisAllowed), normalizedData.studioAccessToApisAllowed.toString());
+    this.updateStatText(
+      "universe-id",
+      normalizedData.universeId.toString(),
+      normalizedData.universeId.toString(),
+    );
+    this.updateStatText(
+      "place-id",
+      normalizedData.rootPlaceId.toString(),
+      normalizedData.rootPlaceId.toString(),
+    );
+    this.updateStatText(
+      "api-access",
+      formatBoolean(normalizedData.studioAccessToApisAllowed),
+      normalizedData.studioAccessToApisAllowed.toString(),
+    );
   }
 
-  private static normalizeData(data: RobloxGameData | GameDataCache, isCache: boolean) {
+  private static normalizeData(
+    data: RobloxGameData | GameDataCache,
+    isCache: boolean,
+  ) {
     if (isCache) {
       const cachedData = data as GameDataCache;
       return {
@@ -119,14 +205,16 @@ export class UIManager {
         genre_l1: cachedData.gameDetails.subgenres.genre_l1,
         genre_l2: cachedData.gameDetails.subgenres.genre_l2,
         allowedGearGenres: cachedData.gameDetails.settings.allowedGearGenres,
-        createVipServersAllowed: cachedData.gameDetails.settings.createVipServersAllowed,
+        createVipServersAllowed:
+          cachedData.gameDetails.settings.createVipServersAllowed,
         copyingAllowed: cachedData.gameDetails.settings.copyingAllowed,
         isGenreEnforced: cachedData.gameDetails.settings.isGenreEnforced,
         hasVerifiedBadge: cachedData.gameDetails.creator.hasVerifiedBadge,
         isRNVAccount: cachedData.gameDetails.creator.isRNVAccount,
         universeId: cachedData.gameDetails.id,
         rootPlaceId: cachedData.gameDetails.rootPlaceId,
-        studioAccessToApisAllowed: cachedData.gameDetails.settings.studioAccessToApisAllowed,
+        studioAccessToApisAllowed:
+          cachedData.gameDetails.settings.studioAccessToApisAllowed,
       };
     } else {
       const gameData = data as RobloxGameData;

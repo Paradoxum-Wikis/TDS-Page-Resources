@@ -41,9 +41,9 @@
     <meta name="theme-color" content="#035D7C" />
     <meta name="apple-mobile-web-app-title" content="TDS:SE" />
 
-    <link href="./styles.css" rel="stylesheet" />
     <link rel="stylesheet" href="./bootstrap.min.css" />
     <link rel="stylesheet" href="./bootstrap-icons.min.css" />
+    <link href="./styles.css" rel="stylesheet" />
     <link
       rel="icon"
       type="image/png"
@@ -149,6 +149,21 @@
     </nav>
 
     <div class="container mt-4">
+      <div class="mb-3">
+        <div class="btn-group gap-2" role="group" aria-label="Game Selector">
+          <button id="switchToTDS" type="button" class="btn btn-info rounded25">
+            Tower Defense Simulator
+          </button>
+          <button
+            id="switchToAlterEgo"
+            type="button"
+            class="btn btn-outline-info rounded25"
+          >
+            ALTER EGO
+          </button>
+        </div>
+      </div>
+
       <div class="row">
         <!-- Thumbnails -->
         <div class="col">
@@ -160,7 +175,10 @@
                 alt="Main Game Icon"
                 class="rounded25"
               />
-              <button id="hdDownloadBtn" class="btn btn-primary hd-button">
+              <button
+                id="hdDownloadBtn"
+                class="btn btn-primary hd-button rounded25"
+              >
                 <i class="bi bi-download me-1"></i>Try full size
               </button>
             </div>
