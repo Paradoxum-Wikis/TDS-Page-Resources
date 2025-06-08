@@ -15,10 +15,6 @@ Output directory:
 
     dist
 
-Install command:
-
-    npm install -D typescript && npx tsc
-
 If dependencies are missing on your local build, run:
 
     npm install
