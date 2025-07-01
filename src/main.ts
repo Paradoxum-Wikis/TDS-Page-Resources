@@ -330,10 +330,7 @@ class TDSPageManager {
         this.currentGame !== "TDS",
       );
 
-      alterEgoButton.classList.toggle(
-        "btn-info",
-        this.currentGame === "AE",
-      );
+      alterEgoButton.classList.toggle("btn-info", this.currentGame === "AE");
       alterEgoButton.classList.toggle(
         "btn-outline-info",
         this.currentGame !== "AE",
@@ -429,9 +426,7 @@ class TDSPageManager {
     }
 
     if (alterEgoButton) {
-      alterEgoButton.addEventListener("click", () =>
-        this.switchGame("AE"),
-      );
+      alterEgoButton.addEventListener("click", () => this.switchGame("AE"));
     }
 
     this.updateGameSwitcherUI();
