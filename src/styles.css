@@ -10,6 +10,16 @@ body {
   background-color: lightgray;
 }
 
+.rounded25 {
+  border-radius: 25px 0 25px 0 !important;
+}
+
+.stupidbigtext {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #333;
+}
+
 /* Containers */
 .game-icon .icon-container {
   position: relative;
@@ -136,16 +146,6 @@ body {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-.stupidbigtext {
-  font-size: 2.5rem;
-  font-weight: bold;
-  color: #333;
-}
-
-.rounded25 {
-  border-radius: 25px 0 25px 0 !important;
-}
-
 .hero-section {
   position: relative;
   z-index: 1;
@@ -156,6 +156,7 @@ body {
   background: rgba(0, 0, 0, 0.4);
   z-index: -1;
 }
+
 
 /* Custom scrollbar */
 ::-webkit-scrollbar {
@@ -176,7 +177,7 @@ body {
   background: #555;
 }
 
-/* Loading animation */
+/* anims */
 @keyframes pulse-subtle {
   0%,
   100% {
