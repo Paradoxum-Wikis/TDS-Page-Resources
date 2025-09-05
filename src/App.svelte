@@ -2,6 +2,7 @@
   import { onMount } from 'svelte';
   import { RobloxApiService } from './modules/service';
   import { getFromCache, saveToCache } from './modules/cacheManage';
+  import { getCachedImageUrl } from './modules/imageCache';
   import type { GameDataCache, GameType } from './modules/types';
   
   import Navigation from './components/Navigation.svelte';
@@ -10,6 +11,7 @@
   import GameDetails from './components/GameDetails.svelte';
   import HeroSection from './components/HeroSection.svelte';
   import LoadingButton from './components/LoadingButton.svelte';
+  import Settings from './components/Settings.svelte';
 
   import 'bootstrap/dist/css/bootstrap.min.css';
   import 'bootstrap-icons/font/bootstrap-icons.css';
@@ -23,6 +25,8 @@
   let thumbnails = $state<Array<{ url: string; alt: string; }>>([]);
   let error = $state<string | null>(null);
   let hasLoadedOnce = $state(false);
+  let cachedGameIconUrl = $state<string | null>(null);
+  let cachedThumbnails = $state<Array<{ url: string; alt: string; }>>([]);
 
   const buttonText = $derived(hasLoadedOnce ? 'Refresh Data' : 'Load Game Details');
 
@@ -38,18 +42,6 @@
     } else {
       resetToPlaceholder();
     }
-  }
-
-  function populateFromCache(cache: GameDataCache) {
-    gameData = cache;
-    gameIconUrl = cache.gameIconUrl;
-    thumbnails = cache.galleryUrls;
-  }
-
-  function resetToPlaceholder() {
-    gameData = null;
-    gameIconUrl = null;
-    thumbnails = [];
   }
 
   async function loadGameData() {
@@ -88,6 +80,20 @@
         }
 
         thumbnails = galleryUrls;
+
+        if (gameIconUrl) {
+          cachedGameIconUrl = await getCachedImageUrl(gameIconUrl);
+        }
+
+        const cachedGalleryUrls: Array<{ url: string; alt: string; }> = [];
+        for (const thumbnail of galleryUrls) {
+          const cachedUrl = await getCachedImageUrl(thumbnail.url);
+          cachedGalleryUrls.push({
+            url: cachedUrl,
+            alt: thumbnail.alt
+          });
+        }
+        cachedThumbnails = cachedGalleryUrls;
 
         // cache object
         const cacheData: GameDataCache = {
@@ -132,7 +138,7 @@
             isFavoritedByUser: game.isFavoritedByUser
           },
           gameIconUrl,
-          galleryUrls
+          galleryUrls,
         };
 
         gameData = cacheData;
@@ -146,10 +152,36 @@
     }
   }
 
-  onMount(() => {
+  async function populateFromCache(cache: GameDataCache) {
+    gameData = cache;
+
+    if (cache.gameIconUrl) {
+      cachedGameIconUrl = await getCachedImageUrl(cache.gameIconUrl);
+    }
+    
+    const cachedGalleryUrls: Array<{ url: string; alt: string; }> = [];
+    for (const thumbnail of cache.galleryUrls) {
+      const cachedUrl = await getCachedImageUrl(thumbnail.url);
+      cachedGalleryUrls.push({
+        url: cachedUrl,
+        alt: thumbnail.alt
+      });
+    }
+    cachedThumbnails = cachedGalleryUrls;
+  }
+
+  function handleClearCache() {
+    gameData = null;
+    cachedGameIconUrl = null;
+    cachedThumbnails = [];
+    gameIconUrl = null;
+    thumbnails = [];
+  }
+
+  onMount(async () => {
     const cachedData = getFromCache(currentGame);
     if (cachedData && cachedData.gameType === currentGame) {
-      populateFromCache(cachedData);
+      await populateFromCache(cachedData);
     }
   });
 </script>
@@ -162,7 +194,8 @@
   <GameSwitcher {currentGame} onGameSwitch={handleGameSwitch} />
 
   <div class="row align-items-center">
-    <Gallery {gameIconUrl} {thumbnails} />
+    <!-- Pass cached URLs to Gallery component -->
+    <Gallery gameIconUrl={cachedGameIconUrl} thumbnails={cachedThumbnails} />
   </div>
 
   <LoadingButton {loading} {buttonText} onClick={loadGameData} />
@@ -178,7 +211,6 @@
 
   <GameDetails {gameData} />
 
-  <!-- Footer Cards -->
    {#if currentGame === 'TDS'}
 <div class="card border-0 shadow-sm mt-4">
   <div class="card-body">
@@ -193,8 +225,20 @@
   </div>
   </div>
   {/if}
-</div>
 
+  <!-- Settings component -->
+  <div class="card border-0 shadow-sm mt-4">
+    <div class="card-body">
+      <h6 class="card-title">
+        <i class="bi bi-gear me-2"></i>
+        Settings
+      </h6>
+      <Settings onClearCache={handleClearCache} />
+    </div>
+  </div>
+  </div>
+
+<!-- Footer Cards -->
 <footer class="bg-dark text-light py-4 mt-5">
   <div class="container">
     <div class="row align-items-center">

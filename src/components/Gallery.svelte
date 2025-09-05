@@ -73,7 +73,7 @@
           <i class="bi bi-download text-info fs-2"></i>
         </div>
       </div>
-      <p class="text-muted small mt-2 mb-0">The download will fetch the highest possible resolution available.</p>
+      <p class="text-muted small mt-2 mb-0"><i class="bi bi-info-circle me-2"></i>The download will fetch the highest possible resolution available.</p>
     </div>
   </div>
 </div>
@@ -121,8 +121,7 @@
       {#if displayThumbnails.length === 6}
         <div class="text-center mt-3">
           <small class="text-muted">
-            <i class="bi bi-info-circle me-2"></i>
-            Showing placeholder images. Load game data to see actual thumbnails.
+            <i class="bi bi-info-circle me-2"></i>Showing placeholder images. Load game data to see actual thumbnails.
           </small>
         </div>
       {/if}
