@@ -30,8 +30,7 @@
     <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
       <div>
         <h5 class="card-title mb-1">
-          <i class="bi bi-joystick me-2 text-primary"></i>
-          Select Game
+          <i class="bi bi-joystick me-2 text-primary"></i>Select Game
         </h5>
         <p class="card-text text-muted small mb-0">Choose which game's resources to view</p>
       </div>

@@ -131,12 +131,4 @@ export interface GameDataCache {
     url: string;
     alt: string;
   }>;
-  cachedImageUrls?: {
-    gameIcon?: string;
-    gallery?: Array<{
-      originalUrl: string;
-      cachedUrl: string;
-      alt: string;
-    }>;
-  };
 }

@@ -14,12 +14,6 @@ body {
 }
 
 /* Containers */
-.game-icon .icon-container {
-  position: relative;
-  display: inline-block;
-  border-radius: 25px 0 25px 0;
-}
-
 .thumbnail-wrapper,
 .game-icon-wrapper {
   position: relative;
@@ -67,13 +61,6 @@ body {
 }
 
 /* Thumbnails */
-.game-icon img,
-.thumbnail-gallery img {
-  width: 15rem;
-  object-fit: cover;
-  background-color: lightgray;
-}
-
 .thumbnail-img {
   transition: transform 0.3s ease;
   border-radius: 25px 0 25px 0;

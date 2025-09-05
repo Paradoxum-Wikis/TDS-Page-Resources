@@ -21,8 +21,6 @@
   let currentGame = $state<GameType>('TDS');
   let loading = $state(false);
   let gameData = $state<GameDataCache | null>(null);
-  let gameIconUrl = $state<string | null>(null);
-  let thumbnails = $state<Array<{ url: string; alt: string; }>>([]);
   let error = $state<string | null>(null);
   let hasLoadedOnce = $state(false);
   let cachedGameIconUrl = $state<string | null>(null);
@@ -40,7 +38,10 @@
     if (cachedData && cachedData.gameType === gameType) {
       populateFromCache(cachedData);
     } else {
-      resetToPlaceholder();
+      // re to empty state
+      gameData = null;
+      cachedGameIconUrl = null;
+      cachedThumbnails = [];
     }
   }
 
@@ -49,6 +50,8 @@
     error = null;
 
     try {
+      let gameIconUrl: string | null = null;
+      
       try {
         const iconResult = await RobloxApiService.fetchGameIcon();
         if (iconResult.data?.[0]?.state === 'Completed' && iconResult.data[0].imageUrl) {
@@ -79,8 +82,6 @@
           }
         }
 
-        thumbnails = galleryUrls;
-
         if (gameIconUrl) {
           cachedGameIconUrl = await getCachedImageUrl(gameIconUrl);
         }
@@ -95,7 +96,6 @@
         }
         cachedThumbnails = cachedGalleryUrls;
 
-        // cache object
         const cacheData: GameDataCache = {
           timestamp: Date.now(),
           gameType: currentGame,
@@ -174,8 +174,6 @@
     gameData = null;
     cachedGameIconUrl = null;
     cachedThumbnails = [];
-    gameIconUrl = null;
-    thumbnails = [];
   }
 
   onMount(async () => {
@@ -187,14 +185,12 @@
 </script>
 
 <Navigation />
-
 <HeroSection {currentGame} />
 
 <div class="container">
   <GameSwitcher {currentGame} onGameSwitch={handleGameSwitch} />
 
   <div class="row align-items-center">
-    <!-- Pass cached URLs to Gallery component -->
     <Gallery gameIconUrl={cachedGameIconUrl} thumbnails={cachedThumbnails} />
   </div>
 
@@ -211,47 +207,43 @@
 
   <GameDetails {gameData} />
 
-   {#if currentGame === 'TDS'}
-<div class="card border-0 shadow-sm mt-4">
-  <div class="card-body">
-    <h6 class="card-title">
-      <i class="bi bi-award me-2 text-warning"></i>
-      Badges Information
-    </h6>
-    <p class="card-text">
-      The badges player count has been integrated to the wiki, the list was moved to the 
-      <a href="https://tds.fandom.com/wiki/Badges" target="_blank">Badges article</a>.
-    </p>
-  </div>
-  </div>
+  {#if currentGame === 'TDS'}
+    <div class="card border-0 shadow-sm mt-4">
+      <div class="card-body">
+        <h6 class="card-title">
+          <i class="bi bi-award me-2 text-warning"></i>Badges Information
+        </h6>
+        <p class="card-text">
+          The badges player count has been integrated to the wiki, the list was moved to the 
+          <a href="https://tds.fandom.com/wiki/Badges" target="_blank">Badges article</a>.
+        </p>
+      </div>
+    </div>
   {/if}
 
-  <!-- Settings component -->
+  <!-- Settings -->
   <div class="card border-0 shadow-sm mt-4">
     <div class="card-body">
       <h6 class="card-title">
-        <i class="bi bi-gear me-2"></i>
-        Settings
+        <i class="bi bi-gear me-2"></i>Settings
       </h6>
       <Settings onClearCache={handleClearCache} />
     </div>
   </div>
-  </div>
+</div>
 
-<!-- Footer Cards -->
+<!-- Footer -->
 <footer class="bg-dark text-light py-4 mt-5">
   <div class="container">
     <div class="row align-items-center">
       <div class="col-md-6">
         <p class="mb-0">
-          <i class="bi bi-exclamation-triangle me-2"></i>
-          WE ARE NOT AFFILIATED WITH PARADOXUM GAMES.
+          <i class="bi bi-exclamation-triangle me-2"></i>WE ARE NOT AFFILIATED WITH PARADOXUM GAMES.
         </p>
       </div>
       <div class="col-md-6 text-md-end">
         <a href="https://github.com/Paradoxum-Wikis/TDS-Page-Resources" class="text-light text-decoration-none">
-          <i class="bi bi-github me-2"></i>
-          View Source Code
+          <i class="bi bi-github me-2"></i>View Source Code
         </a>
       </div>
     </div>

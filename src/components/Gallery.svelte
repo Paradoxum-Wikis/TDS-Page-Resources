@@ -50,8 +50,7 @@
   <div class="card border-0 shadow-sm mb-4">
     <div class="card-header bg-dark bg-gradient text-white">
       <h5 class="mb-0">
-        <i class="bi bi-image me-2"></i>
-        Game Icon
+        <i class="bi bi-image me-2"></i>Game Icon
       </h5>
     </div>
     <div class="card-body text-center">
@@ -83,8 +82,7 @@
   <div class="card border-0 shadow-sm mb-4">
     <div class="card-header bg-dark bg-gradient text-white d-flex justify-content-between align-items-center">
       <h5 class="mb-0">
-        <i class="bi bi-images me-2"></i>
-        Thumbnails
+        <i class="bi bi-images me-2"></i>Thumbnails
       </h5>
       <span class="badge bg-light text-dark">
         {displayThumbnails.length} images

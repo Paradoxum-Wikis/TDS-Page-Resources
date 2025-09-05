@@ -33,12 +33,10 @@
     
     <div class="mt-3">
       <p class="text-muted mb-2">
-        <i class="bi bi-info-circle me-2"></i>
-        Click the button above to load the latest content
+        <i class="bi bi-info-circle me-2"></i>Click the button above to load the latest content
       </p>
       <p class="text-muted mb-0">
-        <i class="bi bi-info-circle me-2"></i>
-        Click on any image to download it
+        <i class="bi bi-info-circle me-2"></i>Click on any image to download it
       </p>
     </div>
   </div>
