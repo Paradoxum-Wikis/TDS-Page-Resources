@@ -3,13 +3,6 @@ body {
   font-family: "Montserrat", sans-serif !important;
 }
 
-.game-icon img,
-.thumbnail-gallery img {
-  width: 15rem;
-  object-fit: cover;
-  background-color: lightgray;
-}
-
 .rounded25 {
   border-radius: 25px 0 25px 0 !important;
 }
@@ -74,6 +67,13 @@ body {
 }
 
 /* Thumbnails */
+.game-icon img,
+.thumbnail-gallery img {
+  width: 15rem;
+  object-fit: cover;
+  background-color: lightgray;
+}
+
 .thumbnail-img {
   transition: transform 0.3s ease;
   border-radius: 25px 0 25px 0;
