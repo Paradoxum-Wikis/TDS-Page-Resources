@@ -5,6 +5,8 @@
 
 A resource downloader for the purpose of wiki documentation.
 
+The site has received a rework using Svelte, to see the code of the site before this, check out [Legacy](https://github.com/Paradoxum-Wikis/TDS-Page-Resources/tree/legacy).
+
 ## Build
 
 Build command:
