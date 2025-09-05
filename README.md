@@ -5,6 +5,8 @@
 
 A sleek resource downloader for Tower Defense Simulator and ALTER EGO wiki documentation.
 
+Everything inside the `public` folder is under CC-BY-SA 3.0.
+
 ## Build
 
 ### Install

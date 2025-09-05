@@ -190,3 +190,7 @@ body {
 .loading-pulse {
   animation: pulse-subtle 2s ease-in-out infinite;
 }
+
+.button.expanded .bi-chevron-down {
+  transform: rotate(180deg);
+}

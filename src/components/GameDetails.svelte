@@ -64,179 +64,231 @@
       </h2>
 
       <!-- Game Stats Section -->
-      <h2 class="h5 mt-4">Game Stats</h2>
-      <div class="game-stats">
-        <table class="table table-sm">
-          <tbody>
-            <tr>
-              <td><i class="bi bi-people-fill me-2"></i>Active Players:</td>
-              <td>
-                {formattedStats.activePlayers} 
-                <span class="text-muted small">({gameData.gameStats.activePlayers})</span>
-              </td>
-            </tr>
-            <tr>
-              <td><i class="bi bi-eye-fill me-2"></i>Total Visits:</td>
-              <td>
-                {formattedStats.totalVisits} 
-                <span class="text-muted small">({gameData.gameStats.totalVisits})</span>
-              </td>
-            </tr>
-            <tr>
-              <td><i class="bi bi-person-check-fill me-2"></i>Max Players:</td>
-              <td>
-                {gameData.gameStats.maxPlayers} 
-                <span class="text-muted small">({gameData.gameStats.maxPlayers})</span>
-              </td>
-            </tr>
-            <tr>
-              <td><i class="bi bi-heart-fill me-2"></i>Favorites:</td>
-              <td>
-                {formattedStats.favoritesCount} 
-                <span class="text-muted small">({gameData.gameStats.favoritesCount})</span>
-              </td>
-            </tr>
-            <tr>
-              <td><i class="bi bi-tag-fill me-2"></i>Genre:</td>
-              <td>
-                {gameData.gameStats.genre} 
-                <span class="text-muted small">({gameData.gameStats.genre})</span>
-              </td>
-            </tr>
-            <tr>
-              <td><i class="bi bi-calendar-event me-2"></i>Created:</td>
-              <td>
-                {formattedStats.created} 
-                <span class="text-muted small">({gameData.gameStats.created})</span>
-              </td>
-            </tr>
-            <tr>
-              <td><i class="bi bi-calendar-check me-2"></i>Last Updated:</td>
-              <td>
-                {formattedStats.updated} 
-                <span class="text-muted small">({gameData.gameStats.updated})</span>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="mt-4">
+        <button class="btn btn-outline-primary w-100 d-flex align-items-center justify-content-between" 
+                data-bs-toggle="collapse" 
+                data-bs-target="#gameStatsCollapse" 
+                aria-expanded="false" 
+                aria-controls="gameStatsCollapse">
+          <span><i class="bi bi-bar-chart-line me-2"></i>Game Statistics</span>
+          <i class="bi bi-chevron-down"></i>
+        </button>
+        <div class="collapse" id="gameStatsCollapse">
+          <div class="card card-body mt-2">
+            <div class="game-stats">
+              <table class="table table-sm">
+                <tbody>
+                  <tr>
+                    <td><i class="bi bi-people-fill me-2"></i>Active Players:</td>
+                    <td>
+                      {formattedStats.activePlayers} 
+                      <span class="text-muted small">({gameData.gameStats.activePlayers})</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><i class="bi bi-eye-fill me-2"></i>Total Visits:</td>
+                    <td>
+                      {formattedStats.totalVisits} 
+                      <span class="text-muted small">({gameData.gameStats.totalVisits})</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><i class="bi bi-person-check-fill me-2"></i>Max Players:</td>
+                    <td>
+                      {gameData.gameStats.maxPlayers} 
+                      <span class="text-muted small">({gameData.gameStats.maxPlayers})</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><i class="bi bi-heart-fill me-2"></i>Favorites:</td>
+                    <td>
+                      {formattedStats.favoritesCount} 
+                      <span class="text-muted small">({gameData.gameStats.favoritesCount})</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><i class="bi bi-tag-fill me-2"></i>Genre:</td>
+                    <td>
+                      {gameData.gameStats.genre} 
+                      <span class="text-muted small">({gameData.gameStats.genre})</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><i class="bi bi-calendar-event me-2"></i>Created:</td>
+                    <td>
+                      {formattedStats.created} 
+                      <span class="text-muted small">({gameData.gameStats.created})</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><i class="bi bi-calendar-check me-2"></i>Last Updated:</td>
+                    <td>
+                      {formattedStats.updated} 
+                      <span class="text-muted small">({gameData.gameStats.updated})</span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
       </div>
 
       <!-- Game Attributes Section -->
-      <h2 class="h5 mt-4">Game Attributes</h2>
-      <div class="game-attributes">
-        <table class="table table-sm">
-          <tbody>
-            <tr>
-              <td><i class="bi bi-currency-dollar me-2"></i>Price:</td>
-              <td>
-                {formattedStats.price}
-                <span class="text-muted small">({gameData.gameDetails.price === null ? "null" : gameData.gameDetails.price})</span>
-              </td>
-            </tr>
-            <tr>
-              <td><i class="bi bi-person-bounding-box me-2"></i>Avatar Type:</td>
-              <td>
-                {gameData.gameDetails.universeAvatarType}
-                <span class="text-muted small">({gameData.gameDetails.universeAvatarType})</span>
-              </td>
-            </tr>
-            <tr>
-              <td><i class="bi bi-tags me-2"></i>Subgenres:</td>
-              <td>
-                {formattedSubgenres}
-                <span class="text-muted small">(l1: {gameData?.gameDetails.subgenres.genre_l1 || "None"}, l2: {gameData?.gameDetails.subgenres.genre_l2 || "None"})</span>
-              </td>
-            </tr>
-            <tr>
-              <td><i class="bi bi-crosshair me-2"></i>Allowed Gear:</td>
-              <td>
-                {formattedStats.allowedGear}
-                <span class="text-muted small">({JSON.stringify(gameData.gameDetails.settings.allowedGearGenres)})</span>
-              </td>
-            </tr>
-            <tr>
-              <td><i class="bi bi-joystick me-2"></i>VIP Servers:</td>
-              <td>
-                {formattedStats.vipServers}
-                <span class="text-muted small">({gameData.gameDetails.settings.createVipServersAllowed})</span>
-              </td>
-            </tr>
-            <tr>
-              <td><i class="bi bi-clipboard me-2"></i>Copying Allowed:</td>
-              <td>
-                {formattedStats.copyingAllowed}
-                <span class="text-muted small">({gameData.gameDetails.settings.copyingAllowed})</span>
-              </td>
-            </tr>
-            <tr>
-              <td><i class="bi bi-shield-check me-2"></i>Genre Enforced:</td>
-              <td>
-                {formattedStats.genreEnforced}
-                <span class="text-muted small">({gameData.gameDetails.settings.isGenreEnforced})</span>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="mt-4">
+        <button class="btn btn-outline-primary w-100 d-flex align-items-center justify-content-between" 
+                data-bs-toggle="collapse" 
+                data-bs-target="#gameAttributesCollapse" 
+                aria-expanded="false" 
+                aria-controls="gameAttributesCollapse">
+          <span><i class="bi bi-gear me-2"></i>Game Attributes</span>
+          <i class="bi bi-chevron-down"></i>
+        </button>
+        <div class="collapse" id="gameAttributesCollapse">
+          <div class="card card-body mt-2">
+            <div class="game-attributes">
+              <table class="table table-sm">
+                <tbody>
+                  <tr>
+                    <td><i class="bi bi-currency-dollar me-2"></i>Price:</td>
+                    <td>
+                      {formattedStats.price}
+                      <span class="text-muted small">({gameData.gameDetails.price === null ? "null" : gameData.gameDetails.price})</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><i class="bi bi-person-bounding-box me-2"></i>Avatar Type:</td>
+                    <td>
+                      {gameData.gameDetails.universeAvatarType}
+                      <span class="text-muted small">({gameData.gameDetails.universeAvatarType})</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><i class="bi bi-tags me-2"></i>Subgenres:</td>
+                    <td>
+                      {formattedSubgenres}
+                      <span class="text-muted small">(l1: {gameData?.gameDetails.subgenres.genre_l1 || "None"}, l2: {gameData?.gameDetails.subgenres.genre_l2 || "None"})</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><i class="bi bi-crosshair me-2"></i>Allowed Gear:</td>
+                    <td>
+                      {formattedStats.allowedGear}
+                      <span class="text-muted small">({JSON.stringify(gameData.gameDetails.settings.allowedGearGenres)})</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><i class="bi bi-joystick me-2"></i>VIP Servers:</td>
+                    <td>
+                      {formattedStats.vipServers}
+                      <span class="text-muted small">({gameData.gameDetails.settings.createVipServersAllowed})</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><i class="bi bi-clipboard me-2"></i>Copying Allowed:</td>
+                    <td>
+                      {formattedStats.copyingAllowed}
+                      <span class="text-muted small">({gameData.gameDetails.settings.copyingAllowed})</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><i class="bi bi-shield-check me-2"></i>Genre Enforced:</td>
+                    <td>
+                      {formattedStats.genreEnforced}
+                      <span class="text-muted small">({gameData.gameDetails.settings.isGenreEnforced})</span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
       </div>
 
       <!-- Creator Details Section -->
-      <h2 class="h5 mt-4">Creator Details</h2>
-      <div class="creator-details">
-        <table class="table table-sm">
-          <tbody>
-            <tr>
-              <td><i class="bi bi-person-badge me-2"></i>Creator Type:</td>
-              <td>
-                {gameData.gameDetails.developerType}
-                <span class="text-muted small">({gameData.gameDetails.developerType})</span>
-              </td>
-            </tr>
-            <tr>
-              <td><i class="bi bi-patch-check me-2"></i>Verified Badge:</td>
-              <td>
-                {formattedStats.verifiedBadge}
-                <span class="text-muted small">({gameData.gameDetails.creator.hasVerifiedBadge})</span>
-              </td>
-            </tr>
-            <tr>
-              <td><i class="bi bi-shield me-2"></i>RNV Account:</td>
-              <td>
-                {formattedStats.rnvAccount}
-                <span class="text-muted small">({gameData.gameDetails.creator.isRNVAccount})</span>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="mt-4">
+        <button class="btn btn-outline-primary w-100 d-flex align-items-center justify-content-between" 
+                data-bs-toggle="collapse" 
+                data-bs-target="#creatorDetailsCollapse" 
+                aria-expanded="false" 
+                aria-controls="creatorDetailsCollapse">
+          <span><i class="bi bi-person-circle me-2"></i>Creator Details</span>
+          <i class="bi bi-chevron-down"></i>
+        </button>
+        <div class="collapse" id="creatorDetailsCollapse">
+          <div class="card card-body mt-2">
+            <div class="creator-details">
+              <table class="table table-sm">
+                <tbody>
+                  <tr>
+                    <td><i class="bi bi-person-badge me-2"></i>Creator Type:</td>
+                    <td>
+                      {gameData.gameDetails.developerType}
+                      <span class="text-muted small">({gameData.gameDetails.developerType})</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><i class="bi bi-patch-check me-2"></i>Verified Badge:</td>
+                    <td>
+                      {formattedStats.verifiedBadge}
+                      <span class="text-muted small">({gameData.gameDetails.creator.hasVerifiedBadge})</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><i class="bi bi-shield me-2"></i>RNV Account:</td>
+                    <td>
+                      {formattedStats.rnvAccount}
+                      <span class="text-muted small">({gameData.gameDetails.creator.isRNVAccount})</span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <!-- Tech Details Section -->
-      <h2 class="h5 mt-4">Technical Details</h2>
-      <div class="technical-details">
-        <table class="table table-sm">
-          <tbody>
-            <tr>
-              <td><i class="bi bi-hash me-2"></i>Universe ID:</td>
-              <td>
-                {gameData.gameDetails.id}
-                <span class="text-muted small">({gameData.gameDetails.id})</span>
-              </td>
-            </tr>
-            <tr>
-              <td><i class="bi bi-hash me-2"></i>Place ID:</td>
-              <td>
-                {gameData.gameDetails.rootPlaceId}
-                <span class="text-muted small">({gameData.gameDetails.rootPlaceId})</span>
-              </td>
-            </tr>
-            <tr>
-              <td><i class="bi bi-code-square me-2"></i>API Access:</td>
-              <td>
-                {formattedStats.apiAccess}
-                <span class="text-muted small">({gameData.gameDetails.settings.studioAccessToApisAllowed})</span>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+      <!-- Technical Details Section -->
+      <div class="mt-4">
+        <button class="btn btn-outline-primary w-100 d-flex align-items-center justify-content-between" 
+                data-bs-toggle="collapse" 
+                data-bs-target="#technicalDetailsCollapse" 
+                aria-expanded="false" 
+                aria-controls="technicalDetailsCollapse">
+          <span><i class="bi bi-code-slash me-2"></i>Technical Details</span>
+          <i class="bi bi-chevron-down"></i>
+        </button>
+        <div class="collapse" id="technicalDetailsCollapse">
+          <div class="card card-body mt-2">
+            <div class="technical-details">
+              <table class="table table-sm">
+                <tbody>
+                  <tr>
+                    <td><i class="bi bi-hash me-2"></i>Universe ID:</td>
+                    <td>
+                      {gameData.gameDetails.id}
+                      <span class="text-muted small">({gameData.gameDetails.id})</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><i class="bi bi-hash me-2"></i>Place ID:</td>
+                    <td>
+                      {gameData.gameDetails.rootPlaceId}
+                      <span class="text-muted small">({gameData.gameDetails.rootPlaceId})</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><i class="bi bi-code-square me-2"></i>API Access:</td>
+                    <td>
+                      {formattedStats.apiAccess}
+                      <span class="text-muted small">({gameData.gameDetails.settings.studioAccessToApisAllowed})</span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
       </div>
     {/if}
   </div>
