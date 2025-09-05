@@ -41,9 +41,13 @@
     <meta name="theme-color" content="#035D7C" />
     <meta name="apple-mobile-web-app-title" content="TDS:SE" />
 
-    <link rel="stylesheet" href="./bootstrap.min.css" />
-    <link rel="stylesheet" href="./bootstrap-icons.min.css" />
-    <link href="./styles.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+
     <link
       rel="icon"
       type="image/png"
@@ -69,15 +73,8 @@
       href="https://raw.githubusercontent.com/Paradoxum-Wikis/TDS-Stats-Editor/refs/heads/main/public/htmlassets/site.webmanifest"
     />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
-      rel="stylesheet"
-    />
+    <script type="module" src="/src/main.ts"></script>
 
-    <script src="./bootstrap.bundle.min.js"></script>
-    <script defer type="module" src="./main.js"></script>
     <link rel="canonical" href="https://resources.tds-editor.com/" />
 
     <!-- Google tag (gtag.js) -->
@@ -91,7 +88,6 @@
         dataLayer.push(arguments);
       }
       gtag("js", new Date());
-
       gtag("config", "G-D48H2PL948");
     </script>
 
@@ -99,324 +95,6 @@
   </head>
 
   <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
-      <div class="container">
-        <a class="navbar-brand"
-          ><img
-            src="./logo.png"
-            alt="Game Page Resources Logo"
-            style="height: 3rem"
-        /></a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link" href="https://tds.fandom.com/">TDS Wiki</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="https://alter-ego.fandom.com/"
-                >AE Wiki</a
-              >
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="https://tds-editor.com/"
-                >TDS Companion</a
-              >
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="https://ae.tds-editor.com/"
-                >AE Companion</a
-              >
-            </li>
-            <li class="nav-item">
-              <a
-                class="nav-link"
-                href="https://github.com/Paradoxum-Wikis/TDS-Page-Resources"
-                >Source Code</a
-              >
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-
-    <div class="container mt-4">
-      <div class="mb-3">
-        <div class="btn-group gap-2" role="group" aria-label="Game Selector">
-          <button id="switchToTDS" type="button" class="btn btn-info rounded25">
-            Tower Defense Simulator
-          </button>
-          <button
-            id="switchToAlterEgo"
-            type="button"
-            class="btn btn-outline-info rounded25"
-          >
-            ALTER EGO
-          </button>
-        </div>
-      </div>
-
-      <div class="row">
-        <!-- Thumbnails -->
-        <div class="col">
-          <!-- Main Icon -->
-          <div class="game-icon mb-3">
-            <div class="icon-container">
-              <img
-                src="https://pbs.twimg.com/media/Fba0rk0XEAEn8Ix.jpg"
-                alt="Main Game Icon"
-                class="rounded25"
-              />
-              <button
-                id="hdDownloadBtn"
-                class="btn btn-primary hd-button rounded25"
-              >
-                <i class="bi bi-download me-1"></i>Try full size
-              </button>
-            </div>
-          </div>
-          <!-- Thumbnail Gallery -->
-          <div class="thumbnail-gallery">
-            <div class="d-flex flex-wrap g-2">
-              <img
-                src="./Placeholder.png"
-                alt="Thumbnail 1"
-                class="rounded25 thumbnail"
-              />
-              <img
-                src="./Placeholder.png"
-                alt="Thumbnail 2"
-                class="rounded25 thumbnail"
-              />
-              <img
-                src="./Placeholder.png"
-                alt="Thumbnail 3"
-                class="rounded25 thumbnail"
-              />
-              <img
-                src="./Placeholder.png"
-                alt="Thumbnail 4"
-                class="rounded25 thumbnail"
-              />
-              <img
-                src="./Placeholder.png"
-                alt="Thumbnail 5"
-                class="rounded25 thumbnail"
-              />
-              <img
-                src="./Placeholder.png"
-                alt="Thumbnail 6"
-                class="rounded25 thumbnail"
-              />
-              <img
-                src="./Placeholder.png"
-                alt="Thumbnail 7"
-                class="rounded25 thumbnail"
-              />
-              <img
-                src="./Placeholder.png"
-                alt="Thumbnail 8"
-                class="rounded25 thumbnail"
-              />
-              <img
-                src="./Placeholder.png"
-                alt="Thumbnail 9"
-                class="rounded25 thumbnail"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="general p-2 mb-2 text-center">
-        <button id="loadGameDataBtn" class="btn btn-success w-100">
-          Load Game Details
-        </button>
-        <div
-          id="loadingIndicator"
-          class="text-center my-2"
-          style="display: none"
-        >
-          <div class="spinner-border spinner-border-sm" role="status">
-            <span class="visually-hidden">Loading...</span>
-          </div>
-          Loading...
-        </div>
-
-        <span class="stupidbigtext"
-          >Click the button above to load the latest content.<br />Click on an
-          image to download it.</span
-        >
-      </div>
-
-      <!-- Game Details -->
-      <div class="col">
-        <div class="game-details mb-3">
-          <h1 class="h3 mb-2">Game Title Placeholder</h1>
-          <p class="text-muted mb-3">By <a href="#">Developer Name</a></p>
-          <hr />
-          <h2 class="h5 mt-3">About</h2>
-          <p>
-            This is the game description area. Lorem ipsum dolor sit amet,
-            consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut
-            labore et dolore magna aliqua.
-          </p>
-
-          <h2 class="h5 mt-4 text-center">
-            Please note that starting from this point, some details may be wrong
-            since it doesn't take into account of Universes or Places inside the
-            game.
-          </h2>
-
-          <!-- Game Stats Section -->
-          <h2 class="h5 mt-4">Game Stats</h2>
-          <div class="game-stats">
-            <table class="table table-sm">
-              <tbody>
-                <tr>
-                  <td><i class="bi bi-people-fill me-1"></i>Active Players:</td>
-                  <td id="active-players">-</td>
-                </tr>
-                <tr>
-                  <td><i class="bi bi-eye-fill me-1"></i>Total Visits:</td>
-                  <td id="total-visits">-</td>
-                </tr>
-                <tr>
-                  <td>
-                    <i class="bi bi-person-check-fill me-1"></i>Max Players:
-                  </td>
-                  <td id="max-players">-</td>
-                </tr>
-                <tr>
-                  <td><i class="bi bi-heart-fill me-1"></i>Favorites:</td>
-                  <td id="favorites-count">-</td>
-                </tr>
-                <tr>
-                  <td><i class="bi bi-tag-fill me-1"></i>Genre:</td>
-                  <td id="game-genre">-</td>
-                </tr>
-                <tr>
-                  <td><i class="bi bi-calendar-event me-1"></i>Created:</td>
-                  <td id="created-date">-</td>
-                </tr>
-                <tr>
-                  <td>
-                    <i class="bi bi-calendar-check me-1"></i>Last Updated:
-                  </td>
-                  <td id="updated-date">-</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <!-- New Game Attributes Section -->
-          <h2 class="h5 mt-4">Game Attributes</h2>
-          <div class="game-attributes">
-            <table class="table table-sm">
-              <tbody>
-                <tr>
-                  <td><i class="bi bi-currency-dollar me-1"></i>Price:</td>
-                  <td id="game-price">-</td>
-                </tr>
-                <tr>
-                  <td>
-                    <i class="bi bi-person-bounding-box me-1"></i>Avatar Type:
-                  </td>
-                  <td id="avatar-type">-</td>
-                </tr>
-                <tr>
-                  <td><i class="bi bi-tags me-1"></i>Subgenres:</td>
-                  <td id="game-subgenres">-</td>
-                </tr>
-                <tr>
-                  <td><i class="bi bi-crosshair me-1"></i>Allowed Gear:</td>
-                  <td id="allowed-gear">-</td>
-                </tr>
-                <tr>
-                  <td><i class="bi bi-joystick me-1"></i>VIP Servers:</td>
-                  <td id="vip-servers">-</td>
-                </tr>
-                <tr>
-                  <td><i class="bi bi-clipboard me-1"></i>Copying Allowed:</td>
-                  <td id="copying-allowed">-</td>
-                </tr>
-                <tr>
-                  <td>
-                    <i class="bi bi-shield-check me-1"></i>Genre Enforced:
-                  </td>
-                  <td id="genre-enforced">-</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <!-- Creator Details Section -->
-          <h2 class="h5 mt-4">Creator Details</h2>
-          <div class="creator-details">
-            <table class="table table-sm">
-              <tbody>
-                <tr>
-                  <td><i class="bi bi-person-badge me-1"></i>Creator Type:</td>
-                  <td id="creator-type">-</td>
-                </tr>
-                <tr>
-                  <td><i class="bi bi-patch-check me-1"></i>Verified Badge:</td>
-                  <td id="verified-badge">-</td>
-                </tr>
-                <tr>
-                  <td><i class="bi bi-shield me-1"></i>RNV Account:</td>
-                  <td id="rnv-account">-</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <!-- Technical Details Section -->
-          <h2 class="h5 mt-4">Technical Details</h2>
-          <div class="technical-details">
-            <table class="table table-sm">
-              <tbody>
-                <tr>
-                  <td><i class="bi bi-hash me-1"></i>Universe ID:</td>
-                  <td id="universe-id">-</td>
-                </tr>
-                <tr>
-                  <td><i class="bi bi-hash me-1"></i>Place ID:</td>
-                  <td id="place-id">-</td>
-                </tr>
-                <tr>
-                  <td><i class="bi bi-code-square me-1"></i>API Access:</td>
-                  <td id="api-access">-</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-
-      <div class="general p-3 mb-3">
-        The badges player count has been moved to
-        <a href="https://tds.fandom.com/wiki/Badges" target="_blank"
-          >https://tds.fandom.com/wiki/Badges</a
-        >.
-      </div>
-
-      <div
-        class="stupidbigtext text-decoration-underline general p-2 text-center mb-3"
-      >
-        THIS SITE IS COMPLETELY UNOFFICIAL AND WE HAVE NO DIRECT AFFILIATION
-        WITH PARADOXUM GAMES AT ALL.
-      </div>
-    </div>
+    <div id="app"></div>
   </body>
 </html>

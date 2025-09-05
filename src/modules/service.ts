@@ -3,7 +3,8 @@ import type {
   RobloxMediaApiResponse,
   RobloxGameIconApiResponse,
   RobloxAssetDeliveryResponse,
-} from "./types.js";
+  GameType,
+} from "./types";
 
 // Game configurations
 const GAMES = {
@@ -19,10 +20,8 @@ const GAMES = {
   },
 } as const;
 
-export type GameType = keyof typeof GAMES;
-
 export class RobloxApiService {
-  private static readonly PROXY_BASE = "https://occulticnine.vercel.app/?url=";
+  private static readonly PROXY_BASE = "https://api.tds-editor.com/?url=";
   private static currentGame: GameType = "TDS";
 
   static setCurrentGame(gameType: GameType): void {

@@ -1,9 +1,9 @@
-import type { GameDataCache } from "./types.js";
+import type { GameDataCache, GameType } from "./types";
 
 const CACHE_DURATION = 24 * 60 * 60 * 1000; // 24 hours
 const CACHE_KEY_PREFIX = "tds_game_data_cache_";
 
-function getCacheKey(gameType: "TDS" | "AE"): string {
+function getCacheKey(gameType: GameType): string {
   return `${CACHE_KEY_PREFIX}${gameType}`;
 }
 
@@ -16,9 +16,7 @@ export function saveToCache(data: GameDataCache): void {
   }
 }
 
-export function getFromCache(
-  gameType: "TDS" | "AE" = "TDS",
-): GameDataCache | null {
+export function getFromCache(gameType: GameType = "TDS"): GameDataCache | null {
   try {
     const cacheKey = getCacheKey(gameType);
     const cachedData = localStorage.getItem(cacheKey);
@@ -41,7 +39,7 @@ export function getFromCache(
   }
 }
 
-export function clearCache(gameType?: "TDS" | "AE"): void {
+export function clearCache(gameType?: GameType): void {
   try {
     if (gameType) {
       const cacheKey = getCacheKey(gameType);

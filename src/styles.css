@@ -1,0 +1,192 @@
+body {
+  background-image: url("./bg.png");
+  font-family: "Montserrat", sans-serif !important;
+}
+
+.game-icon img,
+.thumbnail-gallery img {
+  width: 15rem;
+  object-fit: cover;
+  background-color: lightgray;
+}
+
+/* Containers */
+.game-icon .icon-container {
+  position: relative;
+  display: inline-block;
+  border-radius: 25px 0 25px 0;
+}
+
+.thumbnail-wrapper,
+.game-icon-wrapper {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  border-radius: 25px 0 25px 0;
+  transition:
+    transform 0.3s ease,
+    border-color 0.2s;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.game-icon-wrapper:hover,
+.game-icon-wrapper:focus,
+.thumbnail-wrapper:hover,
+.thumbnail-wrapper:focus {
+  transform: scale(1.05);
+}
+
+.game-icon-wrapper:focus,
+.thumbnail-wrapper:focus {
+  outline: 2px solid var(--bs-primary);
+  outline-offset: 4px;
+}
+
+/* Overlays */
+.game-icon-overlay,
+.thumbnail-overlay {
+  background: rgba(0, 0, 0, 0.7);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border-radius: 25px 0 25px 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.game-icon-wrapper:hover .game-icon-overlay,
+.game-icon-wrapper:focus .game-icon-overlay,
+.thumbnail-wrapper:hover .thumbnail-overlay,
+.thumbnail-wrapper:focus .thumbnail-overlay {
+  opacity: 1;
+}
+
+/* Thumbnails */
+.thumbnail-img {
+  transition: transform 0.3s ease;
+  border-radius: 25px 0 25px 0;
+}
+
+.thumbnail-card {
+  height: 100%;
+}
+
+/* Cards */
+.card {
+  border-radius: 25px 0 25px 0;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15) !important;
+}
+
+.card-header:first-child {
+  border-radius: 25px 0 0 0;
+}
+
+/* Buttons */
+.btn,
+.btn-outline-info,
+.btn-info {
+  border-radius: 25px 0 25px 0;
+  padding-left: 20px;
+  padding-right: 20px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Tables */
+.game-stats td,
+.game-attributes td,
+.creator-details td,
+.technical-details td {
+  padding: 8px;
+}
+
+.game-stats td:first-child,
+.game-attributes td:first-child,
+.creator-details td:first-child,
+.technical-details td:first-child {
+  width: 40%;
+  font-weight: bold;
+}
+
+.game-stats td:nth-child(2),
+.game-attributes td:nth-child(2),
+.creator-details td:nth-child(2),
+.technical-details td:nth-child(2) {
+  width: 60%;
+}
+
+/* Sections */
+.general {
+  background-color: white;
+  border-radius: 25px 0 25px 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.stupidbigtext {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.rounded25 {
+  border-radius: 25px 0 25px 0 !important;
+}
+
+.hero-section {
+  position: relative;
+  z-index: 1;
+  min-height: 300px;
+}
+
+.hero-overlay {
+  background: rgba(0, 0, 0, 0.4);
+  z-index: -1;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Loading animation */
+@keyframes pulse-subtle {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.loading-pulse {
+  animation: pulse-subtle 2s ease-in-out infinite;
+}

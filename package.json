@@ -1,14 +1,24 @@
 {
-  "dependencies": {
-    "bootstrap": "^5.3.7",
-    "bootstrap-icons": "^1.13.1",
-    "typescript": "^5.9.2"
-  },
+  "name": "paradoxum-gp-resources",
+  "version": "2.0.0",
+  "type": "module",
   "scripts": {
-    "build": "tsc && cp index.html dist/ && cp styles.css dist/ && cp logo.png dist/ && cp bg.png dist/ && cp Placeholder.png dist/ && cp node_modules/bootstrap/dist/css/bootstrap.min.css dist/ && cp node_modules/bootstrap/dist/js/bootstrap.bundle.min.js dist/ && cp node_modules/bootstrap-icons/font/bootstrap-icons.min.css dist/ && cp -r node_modules/bootstrap-icons/font/fonts dist/",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
     "format": "prettier . --write"
   },
+  "dependencies": {
+    "bootstrap": "^5.3.7",
+    "bootstrap-icons": "^1.13.1"
+  },
   "devDependencies": {
-    "prettier": "3.6.2"
+    "@sveltejs/vite-plugin-svelte": "^6.1.4",
+    "@tsconfig/svelte": "^5.0.0",
+    "prettier": "3.6.2",
+    "svelte": "^5.38.6",
+    "svelte-check": "^4.0.0",
+    "typescript": "^5.9.2",
+    "vite": "^7.1.4"
   }
 }
