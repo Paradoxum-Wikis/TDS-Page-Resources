@@ -191,6 +191,10 @@ body {
   animation: pulse-subtle 2s ease-in-out infinite;
 }
 
-.button.expanded .bi-chevron-down {
-  transform: rotate(180deg);
+.bi-chevron-down {
+  transition: transform 0.3s ease;
+}
+
+button[aria-expanded="true"] .bi-chevron-down {
+  transform: rotate(-180deg);
 }
