@@ -3,20 +3,36 @@
 
 # TDS Page Resources
 
-A resource downloader for the purpose of wiki documentation.
-
-The site has received a rework using Svelte, to see the code of the site before this, check out [Legacy](https://github.com/Paradoxum-Wikis/TDS-Page-Resources/tree/legacy).
+A sleek resource downloader for Tower Defense Simulator and ALTER EGO wiki documentation.
 
 ## Build
 
-Build command:
+### Install
 
-    npm run build
+```bash
+npm install
+```
 
-Output directory:
+### Development
 
-    dist
+```bash
+npm run dev
+```
 
-If dependencies are missing on your local build, run:
+### Build
 
-    npm install
+```bash
+npm run build
+```
+
+Output directory: `dist`
+
+### Preview
+
+```bash
+npm run preview
+```
+
+## Legacy Version
+
+To see the original codebase before the Svelte rework, check out the [Legacy branch](https://github.com/Paradoxum-Wikis/TDS-Page-Resources/tree/legacy).

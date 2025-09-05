@@ -179,6 +179,7 @@
   <GameDetails {gameData} />
 
   <!-- Footer Cards -->
+   {#if currentGame === 'TDS'}
 <div class="card border-0 shadow-sm mt-4">
   <div class="card-body">
     <h6 class="card-title">
@@ -186,11 +187,12 @@
       Badges Information
     </h6>
     <p class="card-text">
-      The badges player count has been moved to the 
-      <a href="https://tds.fandom.com/wiki/Badges" target="_blank">TDS Wiki Badges page</a>.
+      The badges player count has been integrated to the wiki, the list was moved to the 
+      <a href="https://tds.fandom.com/wiki/Badges" target="_blank">Badges article</a>.
     </p>
   </div>
   </div>
+  {/if}
 </div>
 
 <footer class="bg-dark text-light py-4 mt-5">

@@ -39,7 +39,7 @@
             </li>
             <li>
               <a class="dropdown-item" href="https://alter-ego.fandom.com/">
-                <i class="bi bi-journals me-2"></i>ALTER EGO Wiki
+                <i class="bi bi-journals me-2"></i>ALTERPEDIA
               </a>
             </li>
           </ul>

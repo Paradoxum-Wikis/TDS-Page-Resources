@@ -54,7 +54,7 @@
     </p>
     <hr />
     <h2 class="h5 mt-3">About</h2>
-    <p>{description}</p>
+    <p style="white-space: pre-line">{description}</p>
 
     {#if gameData && formattedStats}
       <h2 class="h5 mt-4 text-center">
