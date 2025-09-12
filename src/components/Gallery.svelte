@@ -13,7 +13,7 @@
     if (!gameIconUrl) return;
     
     try {
-      const hdUrl = gameIconUrl.replace("/512x512/", "/1024x1024/").replace("/512/512/", "/1024/1024/");
+      const hdUrl = gameIconUrl.replace("/512/512/", "/1024/1024/");
       await downloadImage(hdUrl, 'game-icon-hd');
     } catch (error) {
       console.warn('HD download failed, falling back to original:', error);
