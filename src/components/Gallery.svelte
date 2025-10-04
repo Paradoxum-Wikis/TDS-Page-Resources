@@ -2,25 +2,34 @@
   import { downloadImage } from '../modules/downloader';
   
   let { 
-    gameIconUrl, 
+    gameIconUrl,
+    originalGameIconUrl,
     thumbnails
   }: { 
-    gameIconUrl: string | null; 
+    gameIconUrl: string | null;
+    originalGameIconUrl: string | null;
     thumbnails: Array<{ url: string; alt: string; }>; 
   } = $props();
 
   async function handleGameIconClick() {
-    if (!gameIconUrl) return;
+    const urlToUse = originalGameIconUrl || gameIconUrl;
+    if (!urlToUse) return;
+    
+    console.log('[Gallery] Original URL for download:', urlToUse);
     
     try {
-      const hdUrl = gameIconUrl.replace("/512/512/", "/1024/1024/");
+      const hdUrl = urlToUse.replace("/512/512/", "/1024/1024/");
+      console.log('[Gallery] HD URL after replacement:', hdUrl);
+      
       await downloadImage(hdUrl, 'game-icon-hd');
+      console.log('[Gallery] Successfully downloaded 1024x1024');
     } catch (error) {
-      console.warn('HD download failed, falling back to original:', error);
+      console.warn('[Gallery] 1024x1024 download failed, falling back to 512:', error);
       try {
-        await downloadImage(gameIconUrl, 'game-icon');
+        await downloadImage(urlToUse, 'game-icon');
+        console.log('[Gallery] Downloaded original 512x512');
       } catch (fallbackError) {
-        console.error('Both HD and original download failed:', fallbackError);
+        console.error('[Gallery] Both downloads failed:', fallbackError);
         alert('Failed to download game icon');
       }
     }

@@ -24,6 +24,7 @@
   let error = $state<string | null>(null);
   let hasLoadedOnce = $state(false);
   let cachedGameIconUrl = $state<string | null>(null);
+  let originalGameIconUrl = $state<string | null>(null);
   let cachedThumbnails = $state<Array<{ url: string; alt: string; }>>([]);
 
   const buttonText = $derived(hasLoadedOnce ? 'Refresh Data' : 'Load Game Details');
@@ -50,12 +51,12 @@
     error = null;
 
     try {
-      let gameIconUrl: string | null = null;
+      let originalGameIconUrlFromAPI: string | null = null;
       
       try {
         const iconResult = await RobloxApiService.fetchGameIcon();
         if (iconResult.data?.[0]?.state === 'Completed' && iconResult.data[0].imageUrl) {
-          gameIconUrl = iconResult.data[0].imageUrl;
+          originalGameIconUrlFromAPI = iconResult.data[0].imageUrl;
         }
       } catch (iconError) {
         console.error('Failed to fetch game icon:', iconError);
@@ -82,8 +83,8 @@
           }
         }
 
-        if (gameIconUrl) {
-          cachedGameIconUrl = await getCachedImageUrl(gameIconUrl);
+        if (originalGameIconUrlFromAPI) {
+          cachedGameIconUrl = await getCachedImageUrl(originalGameIconUrlFromAPI);
         }
 
         const cachedGalleryUrls: Array<{ url: string; alt: string; }> = [];
@@ -137,13 +138,14 @@
             updated: game.updated,
             isFavoritedByUser: game.isFavoritedByUser
           },
-          gameIconUrl,
+          gameIconUrl: originalGameIconUrlFromAPI,
           galleryUrls,
         };
 
         gameData = cacheData;
         saveToCache(cacheData);
         hasLoadedOnce = true;
+        originalGameIconUrl = originalGameIconUrlFromAPI;
       }
     } catch (err) {
       error = err instanceof Error ? err.message : 'Unknown error occurred';
@@ -154,6 +156,7 @@
 
   async function populateFromCache(cache: GameDataCache) {
     gameData = cache;
+    originalGameIconUrl = cache.gameIconUrl;
 
     if (cache.gameIconUrl) {
       cachedGameIconUrl = await getCachedImageUrl(cache.gameIconUrl);
@@ -173,6 +176,7 @@
   function handleClearCache() {
     gameData = null;
     cachedGameIconUrl = null;
+    originalGameIconUrl = null;
     cachedThumbnails = [];
   }
 
@@ -191,7 +195,11 @@
   <GameSwitcher {currentGame} onGameSwitch={handleGameSwitch} />
 
   <div class="row align-items-center">
-    <Gallery gameIconUrl={cachedGameIconUrl} thumbnails={cachedThumbnails} />
+    <Gallery 
+      gameIconUrl={cachedGameIconUrl} 
+      originalGameIconUrl={originalGameIconUrl}
+      thumbnails={cachedThumbnails} 
+    />
   </div>
 
   <LoadingButton {loading} {buttonText} onClick={loadGameData} />
