@@ -8,8 +8,10 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "sourceMap": true
+    "sourceMap": true,
+    "moduleResolution": "node",
+    "types": ["svelte"]
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "svelte.d.ts"],
   "exclude": ["node_modules"]
 }
